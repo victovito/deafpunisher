@@ -1,0 +1,22 @@
+{
+  "name": "deafpunisher",
+  "version": "1.0.0",
+  "description": "You shouldn't deaf yourself",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victovito/deafpunisher.git"
+  },
+  "author": "vito",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/victovito/deafpunisher/issues"
+  },
+  "homepage": "https://github.com/victovito/deafpunisher#readme",
+  "dependencies": {
+    "discord.js": "^12.5.1"
+  }
+}
