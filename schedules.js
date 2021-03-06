@@ -7,6 +7,7 @@ const addMoveSchedule = function(member){
     const index = getMoveScheduleIndex(member.id);
     const timeout = setTimeout(() => {
         commands.moveToDeafChannel(member);
+        schedules.splice(getMoveScheduleIndex(member.id), 1);
     }, moveTimeout);
 
     if (index == -1){
