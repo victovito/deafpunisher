@@ -9,6 +9,14 @@ client.login(token);
 
 client.once("ready", () => {
     console.log("Deafs are gonna be punished!");
+
+    for (let guild of client.guilds.cache){
+        schedules.setNotificationSchedule(guild);
+    }
+});
+
+client.on("guildCreate", (guild) => {
+    schedules.setNotificationSchedule(guild);
 });
 
 client.on("message", (message) => {
@@ -46,7 +54,7 @@ client.on("message", (message) => {
 });
 
 client.on("voiceStateUpdate", (oldState, newState) => {
-    const serverConfig = commands.getServerConfigByServerId(newState.guild.id);
+    const serverConfig = commands.getServerPropertiesByServerId(newState.guild.id);
 
     if (!serverConfig){
         return;
@@ -55,7 +63,6 @@ client.on("voiceStateUpdate", (oldState, newState) => {
     if (newState.channel){
         if (newState.channel.id != serverConfig.deafChannelId){
             if (newState.selfDeaf == true){
-                // commands.moveToDeafChannel(newState.member);
                 schedules.addMoveSchedule(newState.member);
                 return;
             }
@@ -63,7 +70,6 @@ client.on("voiceStateUpdate", (oldState, newState) => {
     }
 
     schedules.removeMoveSchedule(newState.member);
-    
 
 });
 

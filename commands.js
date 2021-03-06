@@ -1,30 +1,57 @@
 const fs = require("fs");
-const serverConfig = require("./serverConfig.json");
+const serverProperties = require("./serverProperties.json");
 
-var moveToDeafChannel = function(member){
+function ServerPropertiesObj(){
+    this.id = "";
+    this.deafChannelId = "";
+    this.movedMembers = 0;
+}
+
+const moveToDeafChannel = function(member){
     const channel = member.guild.channels.cache.get(
-        getServerConfigByServerId(member.guild.id).deafChannelId
+        getServerPropertiesByServerId(member.guild.id).deafChannelId
     );
     if (!channel){
         return;
     }
     if (member.voice.channel.id != channel.id){
         member.voice.setChannel(channel);
+        increaseMovedMembers(member.guild.id, 1);
     }
 }
 
-var getServerConfigByServerId = function(id){
-    for (let config of serverConfig.list){
-        if (config.id == id){
-            return config;
+const getServerPropertiesByServerId = function(id){
+    for (let properties of serverProperties.list){
+        if (properties.id == id){
+            return properties;
         }
     }
     return null;
 }
 
-var setDeafChannel = function(message, args){
+const createServerProperties = function(guildId){
+    if (!getServerPropertiesByServerId(guildId)){
+        const configList = serverProperties;
+
+        const newObj = new ServerPropertiesObj();
+        newObj.id = guildId;
+
+        configList.list.push(newObj);
+
+        fs.writeFile("./serverProperties.json", JSON.stringify(configList, null, "\t"), (err) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+        });
+
+        return newObj;
+    }
+}
+
+const setDeafChannel = function(message, args){
     const channel = message.guild.channels.cache.get(args[0]);
-    const configList = serverConfig;
+    const properties = serverProperties;
     if (!channel){
         message.channel.send(`Este canal não existe.`);
         return;
@@ -34,20 +61,21 @@ var setDeafChannel = function(message, args){
         return;
     }
 
-    for (let i = 0; i <= configList.list.length; i++){
-        if (i == configList.list.length){
-            configList.list.push({
-                id: channel.guild.id,
-                deafChannelId: channel.id
-            });
+    for (let i = 0; i <= properties.list.length; i++){
+        if (i == properties.list.length){
+            const newObj = new ServerPropertiesObj();
+            newObj.id = channel.guild.id;
+            newObj.deafChannelId = channel.id;
+
+            properties.list.push(newObj);
             break;
         }
-        if (configList.list[i].id == message.guild.id){
-            configList.list[i].deafChannelId = channel.id;
+        if (properties.list[i].id == message.guild.id){
+            properties.list[i].deafChannelId = channel.id;
             break;
         }
     }
-    fs.writeFile("./serverConfig.json", JSON.stringify(configList, null, "\t"), (err) => {
+    fs.writeFile("./serverProperties.json", JSON.stringify(properties, null, "\t"), (err) => {
         if (err) {
             console.error(err);
             return;
@@ -56,9 +84,29 @@ var setDeafChannel = function(message, args){
     });
 }
 
+const increaseMovedMembers = function(guildId, value){
+    const properties = serverProperties;
+
+    for (let i = 0; i <= properties.list.length; i++){
+        if (properties.list[i].id == guildId){
+            properties.list[i].movedMembers = properties.list[i].movedMembers + value;
+            break;
+        }
+    }
+
+    fs.writeFile("./serverProperties.json", JSON.stringify(properties, null, "\t"), (err) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+    });
+
+}
+
 const commands = {
     "set": setDeafChannel,
-    getServerConfigByServerId,
+    getServerPropertiesByServerId,
+    createServerProperties,
     moveToDeafChannel,
 
 }

@@ -1,5 +1,10 @@
 {
     "token": "ODE3NTczNTY5ODQzNTYwNDQ4.YELeuA.PnadHfbtJssEaduwSUOJTwIb_Po",
     "prefix": "--",
-    "moveTimeout": 10000
+    "moveTimeout": 10000,
+    "notifications": {
+        "hours": [
+            10, 22
+        ]
+    }
 }
