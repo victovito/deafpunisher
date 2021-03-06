@@ -54,7 +54,7 @@ var setDeafChannel = function(message, args){
 }
 
 const commands = {
-    "setdeafchannel": setDeafChannel,
+    "set": setDeafChannel,
     getServerConfigByServerId,
     moveToDeafChannel,
 

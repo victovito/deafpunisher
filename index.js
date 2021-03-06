@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const { token, prefix } = require("./config.json");
 const commands = require("./commands.js");
+const schedules = require("./schedules");
 
 const client = new Discord.Client();
 
@@ -51,9 +52,17 @@ client.on("voiceStateUpdate", (oldState, newState) => {
         return;
     }
 
-    if (newState.selfDeaf == true && oldState.channel.id == newState.channel.id){
-        commands.moveToDeafChannel(newState.member);
+    if (newState.channel){
+        if (newState.channel.id != serverConfig.deafChannelId){
+            if (newState.selfDeaf == true){
+                // commands.moveToDeafChannel(newState.member);
+                schedules.addMoveSchedule(newState.member);
+                return;
+            }
+        }
     }
+
+    schedules.removeMoveSchedule(newState.member);
     
 
 });

@@ -1,4 +1,5 @@
 {
     "token": "ODE3NTczNTY5ODQzNTYwNDQ4.YELeuA.PnadHfbtJssEaduwSUOJTwIb_Po",
-    "prefix": "--"
+    "prefix": "--",
+    "moveTimeout": 10000
 }
