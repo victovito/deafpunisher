@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/victovito/deafpunisher/issues"
   },
-  "homepage": "https://github.com/victovito/deafpunisher#readme"
+  "homepage": "https://github.com/victovito/deafpunisher#readme",
+  "dependencies": {
+    "discord.js": "^12.5.1"
+  }
 }
