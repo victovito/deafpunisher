@@ -5,6 +5,9 @@ var moveToDeafChannel = function(member){
     const channel = member.guild.channels.cache.get(
         getServerConfigByServerId(member.guild.id).deafChannelId
     );
+    if (!channel){
+        return;
+    }
     if (member.voice.channel.id != channel.id){
         member.voice.setChannel(channel);
     }
