@@ -40,6 +40,7 @@ const getMoveScheduleIndex = function(id){
 }
 
 const setNotificationSchedule = function(guild){
+    const timeForNext = getNextNotificationOffset();
     setTimeout(() => {
         let properties = commands.getServerPropertiesByServerId(guild[0]);
         if (!properties){
@@ -54,11 +55,16 @@ const setNotificationSchedule = function(guild){
             }
         }
 
-        channel.send(`No total, ${properties.movedMembers} usuários já foram movidos por estarem mutados.`);
+        const timeInHours = Math.round(timeForNext / 1000 / 60 / 1000);
+        channel.send(`${
+            timeInHours == 1 ? "Na última hora" : `Nas últimas ${timeInHours} horas`
+        }, ${properties.movedMembers} usuários foram movidos por estarem mutados.`);
+        
+        commands.resetMovedMembers(guild[0]);
 
         setNotificationSchedule(guild);
         
-    }, getNextNotificationOffset());
+    }, timeForNext);
 }
 
 const getNextNotificationOffset = function(){

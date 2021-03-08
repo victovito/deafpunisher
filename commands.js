@@ -100,7 +100,24 @@ const increaseMovedMembers = function(guildId, value){
             return;
         }
     });
+}
 
+const resetMovedMembers = function(guildId){
+    const properties = serverProperties;
+
+    for (let i = 0; i <= properties.list.length; i++){
+        if (properties.list[i].id == guildId){
+            properties.list[i].movedMembers = 0;
+            break;
+        }
+    }
+
+    fs.writeFile("./serverProperties.json", JSON.stringify(properties, null, "\t"), (err) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+    });
 }
 
 const commands = {
@@ -108,6 +125,7 @@ const commands = {
     getServerPropertiesByServerId,
     createServerProperties,
     moveToDeafChannel,
+    resetMovedMembers,
 
 }
 
