@@ -55,7 +55,7 @@ const setNotificationSchedule = function(guild){
             }
         }
 
-        const timeInHours = Math.round(timeForNext / 1000 / 60 / 1000);
+        const timeInHours = Math.round(timeForNext / 1000 / 60 / 60);
         channel.send(`${
             timeInHours == 1 ? "Na última hora" : `Nas últimas ${timeInHours} horas`
         }, ${properties.movedMembers} usuários foram movidos por estarem mutados.`);
