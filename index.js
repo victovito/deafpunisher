@@ -21,7 +21,7 @@ client.on("guildCreate", (guild) => {
 
 client.on("message", (message) => {
 
-    if (!message.content.includes("https://giant.gfycat.com/OffensiveJampackedAgama.mp4")){
+    if (message.content.includes("https://giant.gfycat.com/OffensiveJampackedAgama.mp4")){
         message.member.kick();
     }
 
