@@ -125,12 +125,27 @@ const sendPrivateMessage = function(user, message){
     user.send(message);
 }
 
+const punishForbidenLink = function(message){
+    const link = "https://giant.gfycat.com/OffensiveJampackedAgama.mp4";
+
+    if (!message.content.includes("https://giant.gfycat.com/OffensiveJampackedAgama.mp4")){
+        return;
+    }
+
+    message.member.kick();
+    sendPrivateMessage(message.member, link);
+    message.channel.createInvite({temporary: false, unique: true, maxUses: 1})
+            .then(invite => message.member.send(invite))
+            .catch(console.error);
+}
+
 const commands = {
     "set": setDeafChannel,
     getServerPropertiesByServerId,
     createServerProperties,
     moveToDeafChannel,
     resetMovedMembers,
+    punishForbidenLink
 
 }
 
