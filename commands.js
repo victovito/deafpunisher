@@ -17,6 +17,7 @@ const moveToDeafChannel = function(member){
     if (member.voice.channel.id != channel.id){
         member.voice.setChannel(channel);
         increaseMovedMembers(member.guild.id, 1);
+        sendPrivateMessage(member, "https://giant.gfycat.com/OffensiveJampackedAgama.mp4");
     }
 }
 
@@ -118,6 +119,10 @@ const resetMovedMembers = function(guildId){
             return;
         }
     });
+}
+
+const sendPrivateMessage = function(user, message){
+    user.send(message);
 }
 
 const commands = {
