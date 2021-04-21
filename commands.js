@@ -128,15 +128,18 @@ const sendPrivateMessage = function(user, message){
 const punishForbidenLink = function(message){
     const link = "https://giant.gfycat.com/OffensiveJampackedAgama.mp4";
 
-    if (!message.content.includes("https://giant.gfycat.com/OffensiveJampackedAgama.mp4")){
+    if (!message.content.includes(link)){
         return;
     }
 
-    message.member.kick();
-    sendPrivateMessage(message.member, link);
     message.channel.createInvite({temporary: false, unique: true, maxUses: 1})
-            .then(invite => message.member.send(invite))
-            .catch(console.error);
+        .then(invite => {
+            sendPrivateMessage(message.member, link);
+            message.member.send(invite.url);
+            message.member.kick();
+        })
+        .catch(console.error);
+
 }
 
 const commands = {

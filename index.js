@@ -21,6 +21,10 @@ client.on("guildCreate", (guild) => {
 
 client.on("message", (message) => {
 
+    if (message.channel.type != "text"){
+        return;
+    }
+
     commands.punishForbidenLink(message);
 
     if (!message.content.startsWith(prefix)){
