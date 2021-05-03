@@ -3,12 +3,20 @@
 		{
 			"id": "712732874998284289",
 			"deafChannelId": "817602646726017034",
+			"notificationChannelId": "712732876650709049",
 			"movedMembers": 0
 		},
 		{
 			"id": "738973279183962182",
 			"deafChannelId": "797283838983798824",
+			"notificationChannelId": "738973279183962185",
 			"movedMembers": 0
+		},
+		{
+			"id": "477229729125105666",
+			"deafChannelId": "477267940740300810",
+			"notificationChannelId": "607475238737018891",
+			"movedMembers": 2
 		}
 	]
 }

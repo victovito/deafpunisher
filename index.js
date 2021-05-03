@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const { token, prefix } = require("./config.json");
+const { token, prefix, env, testServerId } = require("./config.json");
 const commands = require("./commands.js");
 const schedules = require("./schedules");
 
@@ -11,6 +11,12 @@ client.once("ready", () => {
     console.log("Deafs are gonna be punished!");
 
     for (let guild of client.guilds.cache){
+        if (env == "test"){
+            if (testServerId == guild[0]){
+                schedules.setNotificationSchedule(guild);
+            }
+            continue;
+        }
         schedules.setNotificationSchedule(guild);
     }
 });

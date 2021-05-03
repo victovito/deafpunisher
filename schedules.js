@@ -68,6 +68,7 @@ const setNotificationSchedule = function(guild){
 }
 
 const getNextNotificationOffset = function(){
+    // return 1000; //Apagar depois
     const now = new Date();
     let nextHour = null;
     
