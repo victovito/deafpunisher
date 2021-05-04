@@ -1,5 +1,6 @@
 const commands = require("./commands.js");
 const { moveTimeout, notifications } = require("./config.json");
+const properties = require("./serverProperties.json");
 
 const moveSchedules = [];
 
@@ -49,7 +50,7 @@ const setNotificationSchedule = function(guild){
 
         let channel;
         for (let entry of guild[1].channels.cache){
-            if (entry[1].type == "text"){
+            if (entry[0] == properties.notificationChannelId){
                 channel = entry[1];
                 break;
             }
