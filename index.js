@@ -10,19 +10,19 @@ client.login(token);
 client.once("ready", () => {
     console.log("Deafs are gonna be punished!");
 
-    for (let guild of client.guilds.cache){
-        if (env == "test"){
-            if (testServerId == guild[0]){
-                schedules.setNotificationSchedule(guild);
-            }
-            continue;
-        }
-        schedules.setNotificationSchedule(guild);
-    }
+    // for (let guild of client.guilds.cache){
+    //     if (env == "test"){
+    //         if (testServerId == guild[0]){
+    //             schedules.setNotificationSchedule(guild);
+    //         }
+    //         continue;
+    //     }
+    //     schedules.setNotificationSchedule(guild);
+    // }
 });
 
 client.on("guildCreate", (guild) => {
-    schedules.setNotificationSchedule(guild);
+    // schedules.setNotificationSchedule(guild);
 });
 
 client.on("message", (message) => {

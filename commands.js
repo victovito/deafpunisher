@@ -1,4 +1,5 @@
 const fs = require("fs");
+const Discord = require("discord.js");
 const serverProperties = require("./serverProperties.json");
 
 function ServerPropertiesObj(){
@@ -142,14 +143,24 @@ const punishForbidenLink = function(message){
 
 }
 
+/** @param {Discord.Message} message */
+const setBanner = function(message){
+    console.log(message.guild.banner);
+    message.guild.setBanner("./img/banner.jpg")
+        .then(response => {
+            console.log(response.banner);
+        })
+        .catch(console.error);
+}
+
 const commands = {
     "set": setDeafChannel,
+    // "setbanner": setBanner,
     getServerPropertiesByServerId,
     createServerProperties,
     moveToDeafChannel,
     resetMovedMembers,
-    punishForbidenLink
-
+    punishForbidenLink,
 }
 
 module.exports = commands;
