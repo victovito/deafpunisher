@@ -1,6 +1,7 @@
 const fs = require("fs");
 const Discord = require("discord.js");
 const serverProperties = require("./serverProperties.json");
+const config = require("./config.json");
 
 function ServerPropertiesObj(){
     this.id = "";
@@ -147,10 +148,40 @@ const punishForbidenLink = function(message){
 const setBanner = function(message){
     console.log(message.guild.banner);
     message.guild.setBanner("./img/banner.jpg")
-        .then(response => {
-            console.log(response.banner);
-        })
-        .catch(console.error);
+    .then(response => {
+        console.log(response.banner);
+    })
+    .catch(console.error);
+}
+
+/** @param {Discord.Message} message */
+const deleteMusicBotMessage = function(message){
+    const guild = getServerPropertiesByServerId(message.member.guild.id);
+    if (!guild){
+        return false;
+    }
+    const channel = message.guild.channels.cache.get(guild.musicBotChannelId);
+    if (!channel){
+        return false;
+    }
+
+    if (message.channel.id != channel.id){
+        if (message.content.startsWith("!") || userIdIsMusicBot(message.author.id)){
+            message.delete();
+            return true;
+        }
+    }
+    return false;
+}
+
+const userIdIsMusicBot = function(userId){
+    const musicBots = config.musicBots;
+    for (let m of musicBots){
+        if (userId == m){
+            return true;
+        }
+    }
+    return false;
 }
 
 const commands = {
@@ -161,6 +192,7 @@ const commands = {
     moveToDeafChannel,
     resetMovedMembers,
     punishForbidenLink,
+    deleteMusicBotMessage
 }
 
 module.exports = commands;

@@ -32,6 +32,7 @@ client.on("message", (message) => {
     }
 
     commands.punishForbidenLink(message);
+    commands.deleteMusicBotMessage(message);
 
     if (!message.content.startsWith(prefix)){
         return;

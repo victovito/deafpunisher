@@ -1,12 +1,13 @@
 {
     "token": "ODE3NTczNTY5ODQzNTYwNDQ4.YELeuA.PnadHfbtJssEaduwSUOJTwIb_Po",
     "prefix": "--",
-    "moveTimeout": 10000,
+    "moveTimeout": 60000,
     "notifications": {
         "hours": [
             1, 13
         ]
     },
     "env": "prod",
-    "testServerId": "712732874998284289"
+    "testServerId": "712732874998284289",
+    "musicBots": ["235088799074484224", "201503408652419073"]
 }
