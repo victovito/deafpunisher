@@ -167,7 +167,9 @@ const deleteMusicBotMessage = function(message){
 
     if (message.channel.id != channel.id){
         if (message.content.startsWith("!") || userIdIsMusicBot(message.author.id)){
-            message.delete();
+            setTimeout(function(){
+                message.delete();
+            }, 1000);
             return true;
         }
     }
