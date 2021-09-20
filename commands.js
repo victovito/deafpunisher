@@ -16,7 +16,7 @@ const moveToDeafChannel = function(member){
     if (!channel){
         return;
     }
-    if (member.voice.channel.id != channel.id){
+    if (member.voice.channel.id != channel.id && !userIdIsMusicBot(member.id)){
         member.voice.setChannel(channel);
         increaseMovedMembers(member.guild.id, 1);
         // sendPrivateMessage(member, "https://giant.gfycat.com/OffensiveJampackedAgama.mp4");
